@@ -49,7 +49,15 @@ echo "Installing optional Python hardware libs..."
 python3 -m pip install --user gpiozero mfrc522
 
 echo "Building workspace..."
-colcon build
+if ! colcon build; then
+  echo "ERROR: colcon build failed"
+  exit 1
+fi
+
+if [[ ! -f "$WORKSPACE/install/setup.bash" ]]; then
+  echo "ERROR: Build completed but install/setup.bash not found"
+  exit 1
+fi
 
 USE_RC522="false"
 USE_GPIO="false"
@@ -116,7 +124,12 @@ YAML
 
 source "$WORKSPACE/install/setup.bash"
 
-echo "Done."
+if [[ -z "$ROS_PACKAGE_PATH" ]]; then
+  echo "ERROR: Failed to source install/setup.bash - ROS environment not configured"
+  exit 1
+fi
+
+echo "ROS environment configured successfully"
 echo "Runtime params file: $RUNTIME_PARAMS"
 if [[ "$MODE" == "test" ]]; then
   LAUNCH_CMD="ros2 launch lab_assistant_robot vscode_touchscreen_test.launch.py params_file:=$RUNTIME_PARAMS"
