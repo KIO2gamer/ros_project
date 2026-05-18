@@ -1,0 +1,53 @@
+/**:
+  ros__parameters:
+    map_yaml: "maps/lab_map.yaml"
+
+auth_node:
+  ros__parameters:
+    allowed_uids:
+      - "A1B2C3D4"
+      - "11223344"
+    use_rc522: false
+    rc522_poll_sec: 0.5
+
+inventory_node:
+  ros__parameters:
+    max_quantity_default: 5
+
+navigation_node:
+  ros__parameters:
+    obstacle_probability: 0.15
+
+surveillance_node:
+  ros__parameters:
+    unsafe_mode: false
+
+retrieval_node:
+  ros__parameters:
+    use_gpio: false
+    arm_pin: 18
+    gripper_pin: 19
+    action_time_sec: 0.8
+
+dispense_node:
+  ros__parameters:
+    use_gpio: false
+    motor_pin: 23
+    motor_time_sec: 0.7
+
+battery_node:
+  ros__parameters:
+    low_threshold_percent: 20
+    start_percent: 80
+
+emergency_node:
+  ros__parameters:
+    simulate_after_sec: 0
+
+mock_ui_node:
+  ros__parameters:
+    enabled: true
+
+touchscreen_ui_node:
+  ros__parameters:
+    enabled: true
